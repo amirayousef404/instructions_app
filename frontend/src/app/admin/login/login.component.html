@@ -1,0 +1,51 @@
+<section class="login">
+    <div class="container">
+        <div class="row">
+            <mat-card class="col-4 m-auto">
+                <mat-card-title class="text-center mb-3 py-1">Login</mat-card-title>
+                <form class="example-container" [formGroup]="adminData" (ngSubmit)="adminLoginForm()"
+                    autocomplete="off">
+                    <mat-form-field appearance="outline" class="mb-3">
+                        <mat-label>Enter your email</mat-label>
+                        <input matInput placeholder="pat@example.com" formControlName='email' required />
+
+                        <mat-error *ngIf="isSubmited || (email?.invalid && (email?.dirty || email?.touched))">
+                            <ul>
+                                <li *ngIf="email?.errors?.required">
+                                    Fill this input  
+                                </li>
+                                <li *ngIf="email?.errors?.email">
+                                    Enter valid email
+                                </li>
+                            </ul>
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="mb-3 mx-auto">
+                        <mat-label>Enter your password</mat-label>
+                        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" required />
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+                            [attr.aria-pressed]="hide" type="button">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                        <mat-error *ngIf="isSubmited || (password?.invalid && (password?.dirty || password?.touched))">
+                            <ul>
+                                <li *ngIf="password?.errors?.required">
+                                    Fill this input
+                                </li>
+                                <li *ngIf="password?.errors?.minlength">
+                                   Less than 8 cahrs
+                                </li>
+                                <li *ngIf="password?.errors?.maxlength">
+                                    More than 20 cahrs
+                                </li>
+                            </ul>
+                        </mat-error>
+                    </mat-form-field>
+                    <button mat-raised-button color="primary" class="btn_login mb-3 py-1 w-100">Login</button>
+                </form>
+            </mat-card>
+        </div>
+
+    </div>
+
+</section>

@@ -1,0 +1,46 @@
+<mat-toolbar color="primary" class="nav_toolbar">
+    <mat-toolbar-row>
+        <button mat-icon-button class="example-icon" value="left" aria-label="Text align right" (click)="toggleSideBar()">
+            <mat-icon>format_align_left</mat-icon>
+        </button>
+        <!-- <button mat-icon-button class="example-icon" *ngIf="sideBarOpen !== false" aria-label="Text align right"
+            (click)="toggleSideBar()">
+            <mat-icon>close</mat-icon>
+        </button> -->
+        <span>Dashboard</span>
+
+        <div fxFlex fxLayout="row" fxLayoutAlign="flex-end">
+            <ul fxLayout="row" fxLayoutGap="20" class="m-0">
+                <li>
+                    <button mat-icon-button>
+                        <mat-icon>settings</mat-icon>
+                    </button>
+                    <button mat-icon-button>
+                        <mat-icon>notifications</mat-icon>
+                    </button>
+
+                    <!-- <button mat-icon-button>
+                        <mat-icon>logout</mat-icon>
+                    </button> -->
+                    <button mat-button [matMenuTriggerFor]="menu">
+                        <mat-icon>person_outline</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item>
+                            <mat-icon>preview</mat-icon> Profile 
+                        </button>
+                        <button mat-menu-item>
+                            <mat-icon>edit</mat-icon> Edit
+                        </button>
+                        <button mat-menu-item (click)="logout()">
+                            <mat-icon>exit_to_app</mat-icon> Logout
+                        </button>
+                        <button mat-menu-item (click)="logoutAll()">
+                            <mat-icon>logout</mat-icon> Logout All
+                        </button>
+                    </mat-menu>
+                </li>
+            </ul>
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>

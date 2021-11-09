@@ -1,0 +1,10 @@
+.not_found {
+  background: #efefef;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  img {
+    object-fit: cover;
+    
+  }
+}

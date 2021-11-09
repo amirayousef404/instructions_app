@@ -1,0 +1,23 @@
+<mat-card-title>{{headTitle}}</mat-card-title>
+<mat-card class="example-card single_instruction">
+    <mat-card-subtitle>{{singleInstruction.title}}</mat-card-subtitle>
+    <img mat-card-image class="image_exercise img-fluid img-thumbnail d-block mx-auto" src="http://localhost:3000/{{singleInstruction.fileName}}" alt="Exercise">
+    <mat-card-content>
+        {{singleInstruction.description}}
+    </mat-card-content>
+
+    <mat-card-actions>
+        <a routerLink="/editinstruction/{{singleInstruction._id}}">
+            <button mat-raised-button color="primary" aria-label="Example icon button with a home icon">
+                <mat-icon>edit</mat-icon>
+            </button>
+        </a>
+        <span class="mx-2"></span>
+        <a routerLink="/deleteinstruction/{{singleInstruction._id}}" (click)="deleteByAdmin(singleInstruction._id)">
+            <button mat-raised-button color="warn" aria-label="Example icon button with a home icon">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </a>
+    </mat-card-actions>
+</mat-card>
+

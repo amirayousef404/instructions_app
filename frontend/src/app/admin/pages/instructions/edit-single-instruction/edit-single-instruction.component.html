@@ -1,0 +1,60 @@
+<mat-card class="add_instructions">
+    
+    <form class="example-container add_instructions-form" [formGroup]="instructionData" autocomplete="off"
+        (ngSubmit)='editInstructionForm()'>
+        <div  *ngIf="msgCheck !== ''" class="text-danger text-bold text-capitalize my-1">{{msgCheck}}</div>
+        <mat-form-field hintLabel="Max 100 characters" appearance="fill">
+            <mat-label>Title</mat-label>
+            <input matInput #input maxlength="100" placeholder="EX.the best" formControlName='title'>
+            <mat-hint align="end">{{input.value?.length || 3}}/100</mat-hint>
+            <mat-error *ngIf="isSubmited || (title?.invalid && (title?.dirty || title?.touched))">
+                <ul>
+                    <li *ngIf="title?.errors?.required">
+                        Fill this input
+                    </li>
+                    <li *ngIf="title?.errors?.minlength">
+                        Less than 3 cahrs 
+                    </li>
+                    <li *ngIf="title?.errors?.maxlength">
+                        More than 100 cahrs
+                    </li>
+                </ul>
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Description</mat-label>
+            <textarea rows="7" matInput #message maxlength="1000" placeholder="Ex. I need help with..."
+                formControlName='description'></textarea>
+            <mat-hint align="end">{{message.value.length || 3}} / 1000</mat-hint>
+            <mat-error *ngIf="isSubmited || (description?.invalid && (description?.dirty || description?.touched))">
+                <ul>
+                    <li *ngIf="description?.errors?.required">
+                        Fill this input
+                    </li>
+                    <li *ngIf="description?.errors?.minlength">
+                        Less than 3 cahrs
+                    </li>
+                    <li *ngIf="description?.errors?.maxlength">
+                        More than 1000 cahrs
+                    </li>
+                </ul>
+            </mat-error>
+        </mat-form-field>
+        
+        <div class="text-muted mb-1 text-bold user-select-none">
+            {{showFileNameOld}}
+        </div>
+
+        <div class="uplaod_file mb-3">
+            <label class="uplaod_file-label" for="fileUpload">
+                <mat-icon class="uplaod_file-label-icon">
+                    cloud_upload
+                </mat-icon>
+            </label>
+            <input type="file" class="custom-file-input" id="fileUpload" (change)="uploadFile($event)" />
+            <div class="text-danger text-center file-error" *ngIf="checkTypeFile != ''">{{checkTypeFile}}</div>
+        </div>
+       
+        <button mat-raised-button color="primary" class="btn_login mb-3 py-1 w-100">{{headTitle}}</button>
+    </form>
+</mat-card>

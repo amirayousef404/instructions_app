@@ -1,0 +1,30 @@
+.example-card {
+  margin: 0.5rem 0;
+}
+
+.content_user_account {
+  max-width: 20rem;
+}
+
+.user_info {
+  &-details {
+    align-items: center;
+    padding: 0.8rem;
+    border-radius: 0.2rem;
+    margin-bottom: 0.5rem;
+    background: #f1efef;
+    color: #111;
+    font-weight: 500;
+    letter-spacing: 1px;
+    mat-icon {
+      color: rgb(206, 201, 201);
+    }
+  }
+}
+
+.instruction_user {
+  border-left: 2px solid var(--main-color-blue);
+  .image_exercise {
+    height: 300px;
+  }
+}

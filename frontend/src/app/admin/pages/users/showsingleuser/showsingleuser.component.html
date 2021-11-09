@@ -1,0 +1,147 @@
+<mat-card-title class="text-capitalize">{{headTitle}} {{singleUser.userName}}</mat-card-title>
+<mat-tab-group class="my-1">
+    <!-- User account -->
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <mat-icon class="example-tab-icon">
+                account_box
+            </mat-icon>
+            <span class="mx-1">User account</span>
+        </ng-template>
+
+        <mat-card class="example-card content_user_account">
+            <mat-card-title>{{singleUser.userName}}</mat-card-title>
+            <mat-card-subtitle>{{singleUser.email}}</mat-card-subtitle>
+            <mat-card-actions>
+                <a routerLink="/addinstruction/{{singleUser._id}}">
+                    <button mat-button>Replay</button>
+                </a>
+            </mat-card-actions>
+        </mat-card>
+    </mat-tab>
+    <!-- User info -->
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <mat-icon class="example-tab-icon">
+                accessibility
+            </mat-icon>
+            <span class="mx-1">User info</span>
+        </ng-template>
+       <div class="container-fluid">
+            <div class="row">
+                <ng-container *ngFor="let data of singleUserInfo; let i=index;">
+                    <div class="col-lg-4 col-md-6">
+                        <mat-card class="example-card user_info">
+                            <mat-card-content>
+                                <span *ngIf="data.payment == true; then thenBlock else elseBlock"></span>
+                                <ng-template #thenBlock>
+                                    <mat-card-subtitle class="text-capitalize text-success mb-2 bold h5">The payment was made</mat-card-subtitle>
+                                </ng-template>
+                                <ng-template #elseBlock>
+                                    <mat-card-subtitle class="text-capitalize text-danger mb-2 bold h5">not paid yet</mat-card-subtitle>
+                                </ng-template>
+                                <div class="user_info-details d-flex">
+                                    <span>Gender</span>
+                                    <mat-icon class="mx-1">
+                                        arrow_right_alt
+                                    </mat-icon>
+                                    <span>{{data.gender}}</span>
+                                </div>
+                                <div class="user_info-details d-flex">
+                                    <span>Age</span>
+                                    <mat-icon class="mx-1">
+                                        arrow_right_alt
+                                    </mat-icon>
+                                    <span>{{data.age}}</span>
+                                </div>
+
+                                <div class="user_info-details d-flex">
+                                    <span>Height</span>
+                                    <mat-icon class="mx-1">
+                                        arrow_right_alt
+                                    </mat-icon>
+                                    <span>{{data.height}}</span>
+                                </div>
+                                <div class="user_info-details d-flex">
+                                    <span>Weight</span>
+                                    <mat-icon class="mx-1">
+                                        arrow_right_alt
+                                    </mat-icon>
+                                    <span>{{data.weight}}</span>
+                                </div>
+
+                                <div class="user_info-details d-flex">
+                                    <span>Notes</span>
+                                    <mat-icon class="mx-1">
+                                        arrow_right_alt
+                                    </mat-icon>
+                                    <span>{{data.notes}}</span>
+                                </div>
+                                <div class="d-flex align-items-center mb-1">
+                                    <mat-icon class="mr-3 text-secondary">
+                                        create
+                                    </mat-icon>
+                                    <span class="mx-2 bold text-muted">{{data.createdAt | date:'medium'}}</span>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <mat-icon class="mr-3 text-secondary">
+                                        update
+                                    </mat-icon>
+                                    <span class="mx-2 bold text-muted">{{data.updatedAt | date:'medium'}}</span>
+                                </div>
+                            </mat-card-content>
+
+                            <mat-card-actions class="px-2">
+                                <a routerLink="/addinstruction/{{singleUser._id}}">
+                                    <button mat-raised-button color="primary">
+                                        <mat-icon>add</mat-icon>
+                                        <span class="mx-1">Add Instructions</span>
+                                    </button>
+                                </a>
+                            </mat-card-actions>
+                        </mat-card>
+                    </div>
+                </ng-container>
+            </div>
+       </div>
+    </mat-tab>
+
+    <!-- User instruction -->
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <mat-icon class="example-tab-icon">
+                integration_instructions
+            </mat-icon>
+            <span class="mx-1">User instructions</span>
+        </ng-template>
+        <div class="container-fluid">
+            <div class="row">
+                <ng-container *ngFor="let data of singleInstruction; let i=index;">
+                    <div class="col-lg-4 col-md-6">
+                        <mat-card class="example-card instruction_user">
+                            <mat-card-subtitle>{{data.title}}</mat-card-subtitle>
+                            <img mat-card-image class="image_exercise img-fluid img-thumbnail d-block mx-auto" src="http://localhost:3000/{{data.fileName}}" alt="Exercise">
+                            <mat-card-content>
+                                {{data.description}}
+                            </mat-card-content>
+                            <p class="text-muted">{{data.createdAt | date:'medium'}}</p>
+                            <mat-card-actions>
+                                <a routerLink="/editinstruction/{{data._id}}">
+                                    <button mat-raised-button color="primary" aria-label="Example icon button with a home icon">
+                                        <mat-icon>edit</mat-icon>
+                                    </button>
+                                </a>
+                                <span class="mx-2"></span>
+                                <a routerLink="/deleteinstruction/{{data._id}}" (click)="deleteByAdmin(singleInstruction._id)">
+                                    <button mat-raised-button color="warn" aria-label="Example icon button with a home icon">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </a>
+                            </mat-card-actions>
+                        </mat-card>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </mat-tab>
+</mat-tab-group>

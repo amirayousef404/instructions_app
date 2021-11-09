@@ -1,0 +1,568 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is a sample api to instructions app .",
+    "version": "1.0.0",
+    "title": "Instructions App",
+    "termsOfService": "",
+    "contact": {
+      "email": ""
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "user",
+      "description": "Operations about user"
+    },
+    {
+      "name": "userInformation",
+      "description": "Operations about user information"
+    },
+    {
+      "name": "instructions",
+      "description": "Operations about instructions"
+    }
+  ],
+  "schemes": ["http"],
+
+  "paths": {
+    "/user/register": {
+      "post": {
+        "tags": ["user"],
+        "summary": "Create user (register)",
+        "description": "This can only be done by register user.",
+        "operationId": "register",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Register user",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/admin/all": {
+      "post": {
+        "tags": ["user"],
+        "summary": "Show  all user",
+        "description": "All user.",
+        "operationId": "show",
+        "produces": ["application/json", "application/xml"],
+
+        "responses": {},
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/admin/single/{id}": {
+      "get": {
+        "tags": ["user"],
+        "summary": "show single user by admin",
+        "description": "show single user",
+        "operationId": "showUser",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of user",
+            "required": true,
+            "type": "string"
+          }
+        ],
+
+        "responses": {},
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/admin/delUser/{id}": {
+      "delete": {
+        "tags": ["user"],
+        "summary": "delete users by admin",
+        "description": "Delete user",
+        "operationId": "delOfUser",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of user",
+            "required": true,
+            "type": "string"
+          }
+        ],
+
+        "responses": {},
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/user/login": {
+      "post": {
+        "tags": ["user"],
+        "summary": "Logs user into the system",
+        "operationId": "login",
+
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "email and password",
+            "in": "body",
+            "description": "Enter your email and password",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/user/logout": {
+      "post": {
+        "tags": ["user"],
+        "summary": "Logs out current logged in ",
+        "operationId": "logout",
+        "produces": ["application/json", "application/xml"],
+        "responses": {},
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/user/logoutAll": {
+      "post": {
+        "tags": ["user"],
+        "summary": "Logs out current logged in ",
+        "operationId": "logoutAll",
+        "produces": ["application/json", "application/xml"],
+        "responses": {},
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/password-reset": {
+      "post": {
+        "tags": ["user"],
+        "summary": "User forget password after register",
+        "operationId": "ForgetPassword",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "body",
+            "description": "Email for user",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/password-reset/{user_id}/{token}": {
+      "post": {
+        "tags": ["user"],
+        "summary": "User reset password ",
+        "operationId": "ChangePassword",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "user id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "token",
+            "in": "path",
+            "description": "user token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Password",
+            "in": "body",
+            "description": "New password",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
+      }
+    },
+    "/user/delete": {
+      "delete": {
+        "tags": ["user"],
+        "summary": "Delete user",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "deleteUser",
+        "produces": ["application/json", "application/xml"],
+
+        "responses": {},
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/user/addUserInfo": {
+      "post": {
+        "tags": ["userInformation"],
+        "summary": "Add user information",
+        "description": "This can only be done by login user.",
+        "operationId": "addUserInfo",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "add user information",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserInfo"
+            }
+          }
+        ],
+        "responses": {},
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/user/showSingleInfo/{id}": {
+      "get": {
+        "tags": ["userInformation"],
+        "summary": "show single user information",
+        "description": "show single user information by user",
+        "operationId": "showSingleInfo",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of user information",
+            "required": true,
+            "type": "string"
+          }
+        ],
+
+        "responses": {},
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/user/editSingleInfo/{id}": {
+      "patch": {
+        "tags": ["userInformation"],
+        "summary": "edit single user information",
+        "description": "edit single user information by user",
+        "operationId": "editSingleInfo",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of user information",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Updated user information",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserInfo"
+            }
+          }
+        ],
+
+        "responses": {},
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/user/showAllUserInfoByUser": {
+      "post": {
+        "tags": ["userInformation"],
+        "summary": "show all user information",
+        "description": "This can only be done by login user.",
+        "operationId": "showAllUserInfoByUser",
+        "produces": ["application/json", "application/xml"],
+
+        "responses": {},
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/admin/showAllUserInfoByAdmin/{id}": {
+      "get": {
+        "tags": ["userInformation"],
+        "summary": "show all user information ",
+        "description": "show all  user information by admin",
+        "operationId": "showAllUserInfoByAdmin",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of user",
+            "required": true,
+            "type": "string"
+          }
+        ],
+
+        "responses": {},
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/admin/addInstruction": {
+      "post": {
+        "tags": ["instructions"],
+        "summary": "add instructions",
+        "description": "Replay on the users (add instructions)",
+        "operationId": "addInstruction",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "formData",
+            "description": "Id of user to add instruction",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "title",
+            "in": "formData",
+            "description": "title of instruction",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "in": "formData",
+            "description": "description of instruction",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "fileName",
+            "in": "formData",
+            "description": "file to upload (gif)",
+            "required": true,
+            "type": "file"
+          }
+        ],
+        "responses": {},
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/admin/showInstructions": {
+      "post": {
+        "tags": ["instructions"],
+        "summary": "Show all instructions",
+        "description": "This can only be done by login admin.",
+        "operationId": "showInstructions",
+        "produces": ["application/json", "application/xml"],
+        "responses": {},
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/user/showInstruction": {
+      "post": {
+        "tags": ["instructions"],
+        "summary": "Show all instructions for user (by user)",
+        "description": "This can only be done by login user.",
+        "operationId": "showInstruction",
+        "produces": ["application/json", "application/xml"],
+        "responses": {},
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/admin/showInstructionsUser/{id}": {
+      "get": {
+        "tags": ["instructions"],
+        "summary": "show all instructions for one user ",
+        "description": "This can only be done by login admin",
+        "operationId": "showInstructionsUser",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of user",
+            "required": true,
+            "type": "string"
+          }
+        ],
+
+        "responses": {},
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/admin/showSingleInstruction/{id}": {
+      "get": {
+        "tags": ["instructions"],
+        "summary": "show single instruction ",
+        "description": "This can only be done by login admin",
+        "operationId": "showSingleInstruction",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of instruction",
+            "required": true,
+            "type": "string"
+          }
+        ],
+
+        "responses": {},
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/admin/editSingleInstruction/{id}": {
+      "patch": {
+        "tags": ["instructions"],
+        "summary": "Edit single instruction ",
+        "description": "This can only be done by login admin",
+        "operationId": "editSingleInstruction",
+        "consumes": ["multipart/form-data"],
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id of instruction",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "title",
+            "in": "formData",
+            "description": "title of instruction",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "description",
+            "in": "formData",
+            "description": "description of instruction",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "fileName",
+            "in": "formData",
+            "description": "file to upload (gif)",
+            "required": true,
+            "type": "file"
+          }
+        ],
+
+        "responses": {},
+        "security": [{ "bearerAuth": [] }]
+      }
+    },
+    "/admin/deleteSingleInstruction/{id}": {
+      "delete": {
+        "tags": ["instructions"],
+        "summary": "delete single instruction ",
+        "description": "This can only be done by login admin",
+        "operationId": "deleteSingleInstruction",
+        "produces": ["application/json", "application/xml"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of instruction",
+            "required": true,
+            "type": "string"
+          }
+        ],
+
+        "responses": {},
+        "security": [{ "bearerAuth": [] }]
+      }
+    }
+  },
+  "swaggerDefinition": {
+    "security": [{ "bearerAuth": [] }]
+  },
+
+  "securityDefinitions": {
+    "petstore_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "http://petstore.swagger.io/oauth/dialog",
+      "flow": "implicit"
+    },
+    "api_key": {
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "header"
+    },
+    "bearerAuth": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "scheme": "bearer",
+      "in": "header"
+    }
+  },
+
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "userName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "referenceId": {
+          "type": "string"
+        }
+      }
+    },
+    "UserInfo": {
+      "type": "object",
+      "properties": {
+        "gender": {
+          "type": "string",
+          "enum": ["Male", "Female"]
+        },
+        "height": {
+          "type": "number"
+        },
+        "weight": {
+          "type": "number"
+        },
+        "age": {
+          "type": "number"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "Instructions": {
+      "type": "object",
+      "properties": {
+        "user_id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "fileName": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
